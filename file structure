@@ -1,0 +1,10 @@
+Project/
+ ├── data/
+ │    ├── train/
+ │    ├── test/
+ ├── models/
+ ├── src/
+ │    ├── train.py
+ │    ├── predict.py
+ ├── README.md
+ ├── requirements.txt
