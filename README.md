@@ -1,4 +1,4 @@
-# Real-Time Emotion Recognition
+kko# Real-Time Emotion Recognition
 
 A CNN-based emotion recognition system that detects facial emotions in real-time using OpenCV and TensorFlow/Keras.
 
@@ -129,6 +129,86 @@ Followed by:
 - Flatten → Dense(512) → BatchNorm → Dropout(0.5)
 - Dense(256) → BatchNorm → Dropout(0.5)
 - Dense(7, softmax)
+
+### Architecture Diagram
+
+```mermaid
+flowchart TB
+    subgraph Input["Input Layer"]
+        A["Input<br/>48x48x1<br/>Grayscale"]
+    end
+    
+    subgraph Block1["Conv Block 1 - 32 filters"]
+        B1["Conv2D 3x3<br/>32 filters, ReLU"]
+        B2["BatchNorm"]
+        B3["Conv2D 3x3<br/>32 filters, ReLU"]
+        B4["BatchNorm"]
+        B5["MaxPool 2x2"]
+        B6["Dropout 0.25"]
+        B1 --> B2 --> B3 --> B4 --> B5 --> B6
+    end
+    
+    subgraph Block2["Conv Block 2 - 64 filters"]
+        C1["Conv2D 3x3<br/>64 filters, ReLU"]
+        C2["BatchNorm"]
+        C3["Conv2D 3x3<br/>64 filters, ReLU"]
+        C4["BatchNorm"]
+        C5["MaxPool 2x2"]
+        C6["Dropout 0.25"]
+        C1 --> C2 --> C3 --> C4 --> C5 --> C6
+    end
+    
+    subgraph Block3["Conv Block 3 - 128 filters"]
+        D1["Conv2D 3x3<br/>128 filters, ReLU"]
+        D2["BatchNorm"]
+        D3["Conv2D 3x3<br/>128 filters, ReLU"]
+        D4["BatchNorm"]
+        D5["MaxPool 2x2"]
+        D6["Dropout 0.25"]
+        D1 --> D2 --> D3 --> D4 --> D5 --> D6
+    end
+    
+    subgraph Block4["Conv Block 4 - 256 filters"]
+        E1["Conv2D 3x3<br/>256 filters, ReLU"]
+        E2["BatchNorm"]
+        E3["Conv2D 3x3<br/>256 filters, ReLU"]
+        E4["BatchNorm"]
+        E5["MaxPool 2x2"]
+        E6["Dropout 0.25"]
+        E1 --> E2 --> E3 --> E4 --> E5 --> E6
+    end
+    
+    subgraph Dense["Fully Connected Layers"]
+        F1["Flatten"]
+        F2["Dense 512, ReLU"]
+        F3["BatchNorm"]
+        F4["Dropout 0.5"]
+        F5["Dense 256, ReLU"]
+        F6["BatchNorm"]
+        F7["Dropout 0.5"]
+        F1 --> F2 --> F3 --> F4 --> F5 --> F6 --> F7
+    end
+    
+    subgraph Output["Output Layer"]
+        G["Dense 7, Softmax"]
+        H["Emotions:<br/>angry | disgust | fear | happy<br/>neutral | sad | surprise"]
+    end
+    
+    A --> B1
+    B6 --> C1
+    C6 --> D1
+    D6 --> E1
+    E6 --> F1
+    F7 --> G --> H
+    
+    style Input fill:#e1f5fe
+    style Block1 fill:#fff3e0
+    style Block2 fill:#fff3e0
+    style Block3 fill:#fff3e0
+    style Block4 fill:#fff3e0
+    style Dense fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
 
 ## Requirements
 
